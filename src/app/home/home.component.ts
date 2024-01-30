@@ -1,5 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { HomeService } from './home.service';
+import { response } from 'express';
 
 @Component({
   selector: 'app-home',
@@ -9,38 +11,14 @@ import { Component } from '@angular/core';
   styleUrl: './home.component.css'
 })
 export class HomeComponent {
-  cats = [
-    {
-      "name": "Joe",
-      "image": "./assets/cat.jpg",
-      "age": "5 months",
-      "color": "White",
-    },
-    {
-      "name": "leo",
-      "image": "./assets/cat1.jpg",
-      "age": "2 months",
-      "color": "biscute",
-    },
-    {
-      "name": "sony",
-      "image": "./assets/cat2.jpg",
-      "age": "5 months",
-      "color": "White",
-    },
-    {
-      "name": "sony",
-      "image": "./assets/cat2.jpg",
-      "age": "5 months",
-      "color": "White",
-    },
-    {
-      "name": "Joe",
-      "image": "./assets/cat.jpg",
-      "age": "5 months",
-      "color": "White",
-    }
+  cats: any;
+  constructor(private service: HomeService) { }
 
-  ]
+  ngOnInit() {
+    this.service.getCats()
+      .subscribe((response: any) => {
+        this.cats = response;
+      });
+  }
 
 }
